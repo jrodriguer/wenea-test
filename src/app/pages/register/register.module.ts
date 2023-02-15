@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { RegisterComponent } from './register.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [RegisterComponent],
