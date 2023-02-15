@@ -42,21 +42,20 @@ export class LoginComponent implements OnInit, OnDestroy {
     const email = form.value.email;
     const pw = form.value.password;
 
-    // let authObs: Observable<AuthResponseData>;
+    let authObs: Observable<AuthResponseData>;
 
     this.isLoading = true;
 
-    // authObs = this.authSrv.signIn(email, pw);
-    // authObs.pipe(takeUntil(this.destroyed$)).subscribe(
-    //   (res) => {
-    //     this.isLoading = false;
-    //     // this.router.navigate(['/recipes']);
-    //   },
-    //   (err) => {
-    //     this.isLoading = false;
-    //     this.showErrorAlert(err);
-    //   }
-    // );
+    this.authSrv.signIn(email, pw).then(
+      (res) => {
+        this.isLoading = false;
+        // this.router.navigate(['/']);
+      },
+      (err) => {
+        this.isLoading = false;
+        this.showErrorAlert(err);
+      }
+    );
     form.reset();
   }
 
