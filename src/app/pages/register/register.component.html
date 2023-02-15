@@ -74,8 +74,8 @@
         </div>
         <div class="form-floating">
           <select class="form-select" formControlName="country">
-            <option *ngFor="let country of countries" [value]="country.name">
-              {{ country }}
+            <option *ngFor="let country of countries" [value]="country.code">
+              {{ country.name }}
             </option>
           </select>
           <label for="floatingInput">Country</label>
