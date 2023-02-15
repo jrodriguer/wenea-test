@@ -3,6 +3,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument
+} from '@angular/fire/compat/firestore';
 import { UserCredential } from '@firebase/auth-types';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -20,22 +24,39 @@ export class AuthService {
   public user$: Observable<User | null> = this.userSubject.asObservable();
 
   constructor(
+    public afs: AngularFirestore,
     private afAuth: AngularFireAuth,
     private http: HttpClient,
     private router: Router,
     private ngZone: NgZone
   ) {}
 
-  signUp(email: string, password: string) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password);
+  signUp(email: string, password: string, name: string, address: Address) {
+    console.log({ email, password });
+    return this.afAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        const token = result.user?.getIdToken();
+        token?.then((idToken) => {
+          const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+          const user = new User(
+            address,
+            email,
+            result.user?.uid || '',
+            '',
+            idToken || '',
+            expirationDate
+          );
+          this._handleAuth(user);
+        });
+      })
+      .catch((error) => this._handleError(error));
   }
 
   signIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((userCredential: firebase.default.auth.UserCredential) => {
-        console.log(userCredential);
-
         const token = userCredential.user?.getIdToken();
         token?.then((idToken) => {
           const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
@@ -50,9 +71,7 @@ export class AuthService {
           this._handleAuth(user);
         });
       })
-      .catch((error) => {
-        this._handleError(error);
-      });
+      .catch((error) => this._handleError(error));
   }
 
   autoLogin() {
@@ -102,6 +121,8 @@ export class AuthService {
   }
 
   private _handleAuth(user: User) {
+    console.info({ user });
+
     const getTokenExpirationDate = user.token ? user.tokenExpirationDate : null;
     this.userSubject.next(user);
     this.autoLogout(
