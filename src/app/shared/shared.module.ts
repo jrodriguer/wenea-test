@@ -7,20 +7,9 @@ import { DropdownDirective } from './dropdown.directive';
 import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
-  declarations: [
-    AlertComponent,
-    LoadingSpinnerComponent,
-    PlaceholderDirective,
-    DropdownDirective
-  ],
+  declarations: [AlertComponent, DropdownDirective],
   imports: [CommonModule],
-  exports: [
-    AlertComponent,
-    LoadingSpinnerComponent,
-    PlaceholderDirective,
-    DropdownDirective,
-    CommonModule
-  ],
+  exports: [AlertComponent, DropdownDirective, CommonModule],
   entryComponents: [AlertComponent]
 })
 export class SharedModule {}
