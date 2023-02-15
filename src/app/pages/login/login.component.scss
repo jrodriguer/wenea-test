@@ -6,8 +6,10 @@
 }
 
 .form-signin {
+    width: 100%;
     max-width: 330px;
     padding: 15px;
+    margin: auto;
 }
 
 .form-signin input[type="email"] {
@@ -16,13 +18,10 @@
     border-bottom-left-radius: 0;
 }
 
-.form-floating>.form-control, .form-floating>.form-control-plaintext {
-    padding: 1rem 0.75rem;
-}
-
-.form-floating>.form-control, .form-floating>.form-control-plaintext, .form-floating>.form-select {
-    height: calc(3.5rem + calc(var(--bs-border-width) * 2));
-    line-height: 1.25;
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .form-control {
@@ -43,11 +42,19 @@
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
 button {
-  background-color: #0275d8;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  &:hover {
-    background-color: #01549b;
-    cursor: pointer;
-  }
+    background-color: #0275d8;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    &:hover {
+        background-color: #01549b;
+        cursor: pointer;
+    }
 }

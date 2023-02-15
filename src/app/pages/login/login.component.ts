@@ -20,7 +20,6 @@ import { PlaceholderDirective } from '../../shared/placeholder/placeholder.direc
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  public isLoading = false;
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective =
     {} as PlaceholderDirective;
@@ -38,21 +37,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.destroyed$.complete();
   }
 
-  public onSubmit(form: NgForm) {
+  onSubmit(form: NgForm) {
     const email = form.value.email;
     const pw = form.value.password;
 
     let authObs: Observable<AuthResponseData>;
 
-    this.isLoading = true;
-
     this.authSrv.signIn(email, pw).then(
       (res) => {
-        this.isLoading = false;
         // this.router.navigate(['/']);
       },
       (err) => {
-        this.isLoading = false;
         this.showErrorAlert(err);
       }
     );

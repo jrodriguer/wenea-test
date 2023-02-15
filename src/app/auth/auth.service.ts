@@ -24,28 +24,10 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private ngZone: NgZone
-  ) {
-    // this.afAuth.authState.subscribe((user) => {
-    //   if (user) {
-    //     const { email, uid } = user;
-    //     const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-    //     const userToken = userData.token;
-    //     const tokenExpirationDate = new Date(userData._tokenExpirationDate);
-    //     const currentUser = new User(
-    //       userData.address,
-    //       email,
-    //       uid,
-    //       userData.name,
-    //       userToken,
-    //       tokenExpirationDate
-    //     );
-    //     this.user.next(currentUser);
-    //     this.autoLogout(tokenExpirationDate.getTime() - new Date().getTime());
-    //   } else {
-    //     this.user.next(null);
-    //     this.router.navigate(['/auth']);
-    //   }
-    // });
+  ) {}
+
+  signUp(email: string, password: string) {
+    return this.afAuth.createUserWithEmailAndPassword(email, password);
   }
 
   signIn(email: string, password: string) {
