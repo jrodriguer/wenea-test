@@ -13,6 +13,12 @@ export class RegisterComponent {
   public registerForm!: FormGroup;
   public isLoading = false;
 
+  countries = [
+    { name: 'United States', code: 'US' },
+    { name: 'Canada', code: 'CA' },
+    { name: 'Mexico', code: 'MX' }
+  ];
+
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
@@ -20,6 +26,10 @@ export class RegisterComponent {
   ) {}
 
   ngOnInit() {
+    this.initForm();
+  }
+
+  initForm() {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],

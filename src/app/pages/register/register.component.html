@@ -1,5 +1,5 @@
 <div class="container text-center">
-  <div class="form-signin">
+  <div class="form-signup">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <img
         class="mb-4"
@@ -9,6 +9,16 @@
         height="57"
       />
       <h1 class="h3 mb-3 fw-normal">Register</h1>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          formControlName="name"
+          placeholder="Name"
+        />
+        <label for="name">Name</label>
+      </div>
       <div class="form-floating">
         <input
           type="email"
@@ -31,25 +41,45 @@
         />
         <label for="floatingPassword">Password</label>
       </div>
-      <div class="form-floating">
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          formControlName="name"
-          placeholder="Name"
-        />
-        <label for="name">Name</label>
-      </div>
-      <div class="form-floating">
-        <input
-          type="text"
-          class="form-control"
-          id="address"
-          formControlName="address"
-          placeholder="Address"
-        />
-        <label for="address">Address</label>
+      <div class="address-container" formGroupName="address">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="street"
+            formControlName="street"
+            placeholder="Street"
+          />
+          <label for="floatingInput">Street</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="city"
+            formControlName="city"
+            placeholder="City"
+          />
+          <label for="floatingInput">City</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="zip"
+            formControlName="zip"
+            placeholder="Zip"
+          />
+          <label for="floatingInput">Zip</label>
+        </div>
+        <div class="form-floating">
+          <select class="form-select" formControlName="country">
+            <option *ngFor="let country of countries" [value]="country.name">
+              {{ country }}
+            </option>
+          </select>
+          <label for="floatingInput">Country</label>
+        </div>
       </div>
       <button
         class="w-100 btn btn-lg btn-primary"
