@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -7,13 +7,13 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/compat/firestore';
 import { UserCredential } from '@firebase/auth-types';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { AuthResponseData } from '../../models/auth-model.temp';
 import { environment } from '../../environments/environment';
 import { User } from '../../models/user.model';
-import { Address } from '../../models/ddbb.model';
+import { Address, UserDoc } from '../../models/ddbb.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +27,7 @@ export class AuthService {
     private afs: AngularFirestore,
     private afAuth: AngularFireAuth,
     private http: HttpClient,
-    private router: Router,
-    private ngZone: NgZone
+    private router: Router
   ) {}
 
   signUp(email: string, password: string, name: string, address: Address) {
@@ -41,7 +40,7 @@ export class AuthService {
             email,
             userCredential.user?.uid || '',
             name,
-            idToken || '',
+            idToken,
             address
           );
         });
@@ -55,24 +54,29 @@ export class AuthService {
       .then((userCredential: UserCredential) => {
         const token = userCredential.user?.getIdToken();
         token?.then((idToken: string) => {
-          this._handleAuth(
-            email,
-            userCredential.user?.uid || '',
-            '',
-            idToken || ''
-          );
+          this._getUserDocByEmail(email).subscribe((user: UserDoc | null) => {
+            if (user) {
+              this._handleAuth(
+                email,
+                userCredential.user?.uid || '',
+                user.name,
+                idToken,
+                user.address
+              );
+            }
+          });
         });
       })
       .catch((error) => this._handleError(error));
   }
 
-  getUserByEmail(email: string): Observable<User | null> {
+  private _getUserDocByEmail(email: string): Observable<UserDoc | null> {
     return this.afs
-      .collection<User>('users', (ref) => ref.where('email', '==', email))
+      .collection<UserDoc>('users', (ref) => ref.where('email', '==', email))
       .valueChanges({ idField: 'id' })
       .pipe(
         take(1),
-        map((users: User[]) => {
+        map((users: UserDoc[]) => {
           if (users && users.length > 0) {
             return users[0];
           } else {

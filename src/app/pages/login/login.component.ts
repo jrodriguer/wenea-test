@@ -12,6 +12,7 @@ import { Observable, Subscription, ReplaySubject, takeUntil } from 'rxjs';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AuthResponseData } from '../../../models/auth-model.temp';
 import { AuthService } from '../../auth/auth.service';
+import { UserService } from '../../services/user.service';
 import { PlaceholderDirective } from '../../shared/placeholder/placeholder.directive';
 
 @Component({
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     {} as PlaceholderDirective;
 
   constructor(
-    private authSrv: AuthService,
+    private authService: AuthService,
+    private userService: UserService,
     private router: Router,
     private componentFactoryResolver: ComponentFactoryResolver
   ) {}
@@ -40,10 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit(form: NgForm) {
     const email = form.value.email;
     const pw = form.value.password;
-
-    let authObs: Observable<AuthResponseData>;
-
-    this.authSrv.signIn(email, pw).then(
+    this.authService.signIn(email, pw).then(
       (res) => {
         // this.router.navigate(['/']);
       },
