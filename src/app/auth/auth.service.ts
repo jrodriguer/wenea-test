@@ -3,17 +3,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument
-} from '@angular/fire/compat/firestore';
+import { AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { UserCredential } from '@firebase/auth-types';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { AuthResponseData } from '../../models/auth-model.temp';
 import { environment } from '../../environments/environment';
 import { User } from '../../models/user.model';
-import { Address } from '../../models/interfaces.model';
+import { Address } from '../../models/ddbb.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +21,6 @@ export class AuthService {
   public user$: Observable<User | null> = this.userSubject.asObservable();
 
   constructor(
-    public afs: AngularFirestore,
     private afAuth: AngularFireAuth,
     private http: HttpClient,
     private router: Router,
