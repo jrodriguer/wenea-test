@@ -30,7 +30,7 @@ export class RegisterComponent {
 
   constructor(
     private authService: AuthService,
-    private userServie: UserService,
+    private userService: UserService,
     private formBuilder: FormBuilder,
     private router: Router,
     private componentFactoryResolver: ComponentFactoryResolver
@@ -46,10 +46,10 @@ export class RegisterComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       name: ['', Validators.required],
       address: this.formBuilder.group({
-        street: ['', Validators.required],
-        city: ['', Validators.required],
-        zip: ['', [Validators.required, Validators.pattern(/^[0-9]{5}$/)]],
-        province: ['', Validators.required]
+        street: [''],
+        city: [''],
+        zip: ['', [, Validators.pattern(/^[0-9]{5}$/)]],
+        province: ['']
       })
     });
   }
@@ -73,11 +73,12 @@ export class RegisterComponent {
   }
 
   private _setUserDoc(registration: UserDoc) {
-    this.userServie
+    this.userService
       .createUser(registration)
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((res) => console.log(res));
-    // this.router.navigate(['/']);
+      .subscribe((res) => {
+        // this.router.navigate(['/']);
+      });
   }
 
   private showErrorAlert(message: string) {
