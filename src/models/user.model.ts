@@ -1,4 +1,4 @@
-import { Address } from './interfaces.model';
+import { Address } from './ddbb.model';
 
 export class User {
   constructor(
