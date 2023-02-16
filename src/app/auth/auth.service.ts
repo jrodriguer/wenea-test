@@ -37,15 +37,6 @@ export class AuthService {
       .then((userCredential: UserCredential) => {
         const token = userCredential.user?.getIdToken();
         token?.then((idToken) => {
-          // const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-          // const user = new User(
-          //   address,
-          //   email,
-          //   result.user?.uid || '',
-          //   '',
-          //   idToken || '',
-          //   expirationDate
-          // );
           this._handleAuth(
             email,
             userCredential.user?.uid || '',
@@ -63,15 +54,6 @@ export class AuthService {
       .then((userCredential: UserCredential) => {
         const token = userCredential.user?.getIdToken();
         token?.then((idToken: string) => {
-          // const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-          // const user = new User(
-          //   {} as Address,
-          //   email,
-          //   userCredential.user?.uid || '',
-          //   '',
-          //   idToken || '',
-          //   expirationDate
-          // );
           this._handleAuth(
             email,
             userCredential.user?.uid || '',
@@ -139,14 +121,8 @@ export class AuthService {
   ) {
     const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
     const user = new User(email, uid, name, token, expirationDate, address);
-    // const getTokenExpirationDate = user.token ? user.tokenExpirationDate : null;
     this.userSubject.next(user);
     this.autoLogout(3600 * 1000);
-    // this.autoLogout(
-    //   getTokenExpirationDate
-    //     ? getTokenExpirationDate.getTime() - new Date().getTime()
-    //     : 0
-    // );
     localStorage.setItem('userData', JSON.stringify(user));
   }
 
