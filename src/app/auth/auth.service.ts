@@ -1,11 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { catchError, tap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument
+} from '@angular/fire/compat/firestore';
 import { UserCredential } from '@firebase/auth-types';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 import { AuthResponseData } from '../../models/auth-model.temp';
 import { environment } from '../../environments/environment';
@@ -21,6 +24,7 @@ export class AuthService {
   public user$: Observable<User | null> = this.userSubject.asObservable();
 
   constructor(
+    private afs: AngularFirestore,
     private afAuth: AngularFireAuth,
     private http: HttpClient,
     private router: Router,
@@ -37,7 +41,8 @@ export class AuthService {
             email,
             userCredential.user?.uid || '',
             name,
-            idToken || ''
+            idToken || '',
+            address
           );
         });
       })
@@ -59,6 +64,22 @@ export class AuthService {
         });
       })
       .catch((error) => this._handleError(error));
+  }
+
+  getUserByEmail(email: string): Observable<User | null> {
+    return this.afs
+      .collection<User>('users', (ref) => ref.where('email', '==', email))
+      .valueChanges({ idField: 'id' })
+      .pipe(
+        take(1),
+        map((users: User[]) => {
+          if (users && users.length > 0) {
+            return users[0];
+          } else {
+            return null;
+          }
+        })
+      );
   }
 
   autoLogin() {
