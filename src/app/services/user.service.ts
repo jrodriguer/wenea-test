@@ -13,7 +13,7 @@ import { UserDoc } from '../../models/ddbb.model';
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class UserService {
   constructor(private http: HttpClient) {}
 
   private handleError(error: any) {

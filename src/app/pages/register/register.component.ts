@@ -12,6 +12,8 @@ import { Observable, Subscription, ReplaySubject, takeUntil } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { PlaceholderDirective } from '../../shared/placeholder/placeholder.directive';
+import { UserService } from '../../services/user.service';
+import { UserDoc } from '../../../models/ddbb.model';
 
 @Component({
   selector: 'app-register',
@@ -24,15 +26,11 @@ export class RegisterComponent {
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective =
     {} as PlaceholderDirective;
 
-  countries = [
-    { name: 'Spain', code: 'SP' },
-    { name: 'United States', code: 'US' },
-    { name: 'Canada', code: 'CA' },
-    { name: 'Mexico', code: 'MX' }
-  ];
+  provinces = [{ name: 'Madrid', code: 'MD' }];
 
   constructor(
     private authService: AuthService,
+    private userServie: UserService,
     private formBuilder: FormBuilder,
     private router: Router,
     private componentFactoryResolver: ComponentFactoryResolver
@@ -51,20 +49,35 @@ export class RegisterComponent {
         street: ['', Validators.required],
         city: ['', Validators.required],
         zip: ['', [Validators.required, Validators.pattern(/^[0-9]{5}$/)]],
-        country: ['', Validators.required]
+        province: ['', Validators.required]
       })
     });
   }
 
   onSubmit() {
-    const { email, password, name, address } = this.registerForm.value;
+    const formValue: UserDoc = this.registerForm.value;
     console.log(this.registerForm.value);
-    this.authService.signUp(email, password, name, address).then(
-      (res) => {
-        // this.router.navigate(['/']);
-      },
-      (err) => this.showErrorAlert(err)
-    );
+    this.authService
+      .signUp(
+        formValue.email,
+        formValue.password,
+        formValue.name,
+        formValue.address
+      )
+      .then(
+        (res) => {
+          this._setUserDoc(formValue);
+        },
+        (err) => this.showErrorAlert(err)
+      );
+  }
+
+  private _setUserDoc(registration: UserDoc) {
+    this.userServie
+      .createUser(registration)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((res) => console.log(res));
+    // this.router.navigate(['/']);
   }
 
   private showErrorAlert(message: string) {

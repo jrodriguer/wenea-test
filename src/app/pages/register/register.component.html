@@ -74,12 +74,12 @@
           <label for="floatingInput">Zip</label>
         </div>
         <div class="form-floating">
-          <select class="form-select" formControlName="country">
-            <option *ngFor="let country of countries" [value]="country.code">
-              {{ country.name }}
+          <select class="form-select" formControlName="province">
+            <option *ngFor="let province of provinces" [value]="province.code">
+              {{ province.name }}
             </option>
           </select>
-          <label for="floatingInput">Country</label>
+          <label for="floatingInput">Proivince</label>
         </div>
       </div>
       <button

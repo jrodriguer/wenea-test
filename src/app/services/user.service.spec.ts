@@ -5,20 +5,20 @@ import {
 } from '@angular/common/http/testing';
 
 import { environment } from '../../environments/environment';
-import { UsersService } from './users.service';
+import { UserService } from './users.service';
 import { UserDoc } from '../../models/ddbb.model';
 
-describe('UsersService', () => {
-  let service: UsersService;
+describe('UserService', () => {
+  let service: UserService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [UsersService]
+      providers: [UserService]
     });
 
-    service = TestBed.inject(UsersService);
+    service = TestBed.inject(UserService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 
