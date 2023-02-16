@@ -11,10 +11,6 @@ export class User {
     public address?: Address
   ) {}
 
-  get tokenExpirationDate() {
-    return this._tokenExpirationDate;
-  }
-
   get token() {
     if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
       return null;
