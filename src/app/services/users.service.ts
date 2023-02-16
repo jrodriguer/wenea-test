@@ -8,7 +8,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { User } from '../../models/user.model';
+import { UserDoc } from '../../models/ddbb.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ import { User } from '../../models/user.model';
 export class UsersService {
   constructor(private http: HttpClient) {}
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: any) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
     } else {
@@ -28,37 +28,34 @@ export class UsersService {
   }
 
   buildHeaders() {
-    return (headers = new HttpHeaders({
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${environment.apiUrl}`
-    }));
+    });
+    return headers;
   }
 
-  getUsers(): Observable<User[]> {
+  getUsers(): Observable<any> {
     const headers = this.buildHeaders();
-    return this.http
-      .get(`${environment.apiUrl}/users`, { headers })
-      .pipe(catchError(this.handleError));
+    return this.http.get(`${environment.apiUrl}/users`, { headers });
+    // .pipe(catchError(this.handleError));
   }
 
-  getUser(id: string): Observable<User> {
+  getUser(id: string): Observable<any> {
     const headers = this.buildHeaders();
-    return this.http
-      .get(`${environment.apiUrl}/user/${id}`, { headers })
-      .pipe(catchError(this.handleError));
+    return this.http.get(`${environment.apiUrl}/user/${id}`, { headers });
+    // .pipe(catchError(this.handleError));
   }
 
-  createUser(user: User): Observable<User> {
+  createUser(user: UserDoc): Observable<any> {
     const headers = this.buildHeaders();
-    return this.http
-      .post(`${environment.apiUrl}/user`, user, { headers })
-      .pipe(catchError(this.handleError));
+    return this.http.post(`${environment.apiUrl}/user`, user, { headers });
+    // .pipe(catchError(this.handleError));
   }
 
-  updateUser(id: string, user: User): Observable<User> {
+  updateUser(id: string, user: UserDoc): Observable<any> {
     const headers = this.buildHeaders();
-    return this.http
-      .put(`${environment.apiUrl}/user/${id}`, user, { headers })
-      .pipe(catchError(this.handleError));
+    return this.http.put(`${environment.apiUrl}/user/${id}`, user, { headers });
+    // .pipe(catchError(this.handleError));
   }
 }
