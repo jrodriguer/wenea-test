@@ -4,7 +4,9 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 
+import { environment } from '../../environments/environment';
 import { UsersService } from './users.service';
+import { UserDoc } from '../../models/ddbb.model';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -30,17 +32,27 @@ describe('UsersService', () => {
 
   describe('getUsers()', () => {
     it('should return an Observable of users', () => {
-      const mockUsers = [
-        { id: 1, name: 'User 1' },
-        { id: 2, name: 'User 2' }
+      const mockUsers: UserDoc[] = [
+        {
+          id: '1',
+          password: '450200',
+          email: 'example@example.com',
+          address: {
+            street: '',
+            zip: '',
+            city: '',
+            province: ''
+          },
+          name: 'User 1'
+        }
       ];
 
       service.getUsers().subscribe((users) => {
-        expect(users.length).toBe(2);
+        expect(users.length).toBe(1);
         expect(users).toEqual(mockUsers);
       });
 
-      const req = httpMock.expectOne(`${service.baseUrl}/users`);
+      const req = httpMock.expectOne(`${environment.apiUrl}/users`);
       expect(req.request.method).toBe('GET');
       req.flush(mockUsers);
     });
