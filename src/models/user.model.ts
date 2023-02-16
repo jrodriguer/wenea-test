@@ -2,13 +2,13 @@ import { Address } from './interfaces.model';
 
 export class User {
   constructor(
-    public address: Address,
     public email: string,
     public uid: string,
     public name: string,
-    private _token?: string,
+    private _token: string,
+    // public password?: string
     private _tokenExpirationDate?: Date,
-    public password?: string
+    public address?: Address
   ) {}
 
   get tokenExpirationDate() {

@@ -32,22 +32,26 @@ export class AuthService {
   ) {}
 
   signUp(email: string, password: string, name: string, address: Address) {
-    console.log({ email, password });
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        const token = result.user?.getIdToken();
+      .then((userCredential: UserCredential) => {
+        const token = userCredential.user?.getIdToken();
         token?.then((idToken) => {
-          const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-          const user = new User(
-            address,
+          // const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+          // const user = new User(
+          //   address,
+          //   email,
+          //   result.user?.uid || '',
+          //   '',
+          //   idToken || '',
+          //   expirationDate
+          // );
+          this._handleAuth(
             email,
-            result.user?.uid || '',
-            '',
-            idToken || '',
-            expirationDate
+            userCredential.user?.uid || '',
+            name,
+            idToken || ''
           );
-          this._handleAuth(user);
         });
       })
       .catch((error) => this._handleError(error));
@@ -56,19 +60,24 @@ export class AuthService {
   signIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
-      .then((userCredential: firebase.default.auth.UserCredential) => {
+      .then((userCredential: UserCredential) => {
         const token = userCredential.user?.getIdToken();
-        token?.then((idToken) => {
-          const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-          const user = new User(
-            {} as Address,
+        token?.then((idToken: string) => {
+          // const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+          // const user = new User(
+          //   {} as Address,
+          //   email,
+          //   userCredential.user?.uid || '',
+          //   '',
+          //   idToken || '',
+          //   expirationDate
+          // );
+          this._handleAuth(
             email,
             userCredential.user?.uid || '',
             '',
-            idToken || '',
-            expirationDate
+            idToken || ''
           );
-          this._handleAuth(user);
         });
       })
       .catch((error) => this._handleError(error));
@@ -90,13 +99,14 @@ export class AuthService {
     const userToken = userData._token;
     const tokenExpirationDate = new Date(userData._tokenExpirationDate);
     const currentUser = new User(
-      userData.address,
       userData.email,
       userData.uid,
       userData.name,
       userToken,
-      tokenExpirationDate
+      tokenExpirationDate,
+      userData.address
     );
+    console.info('auto login', currentUser);
     if (currentUser.token) {
       this.userSubject.next(currentUser);
       this.autoLogout(tokenExpirationDate.getTime() - new Date().getTime());
@@ -120,16 +130,23 @@ export class AuthService {
     }, expirationDuration);
   }
 
-  private _handleAuth(user: User) {
-    console.info({ user });
-
-    const getTokenExpirationDate = user.token ? user.tokenExpirationDate : null;
+  private _handleAuth(
+    email: string,
+    uid: string,
+    name: string,
+    token: string,
+    address?: Address
+  ) {
+    const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+    const user = new User(email, uid, name, token, expirationDate, address);
+    // const getTokenExpirationDate = user.token ? user.tokenExpirationDate : null;
     this.userSubject.next(user);
-    this.autoLogout(
-      getTokenExpirationDate
-        ? getTokenExpirationDate.getTime() - new Date().getTime()
-        : 0
-    );
+    this.autoLogout(3600 * 1000);
+    // this.autoLogout(
+    //   getTokenExpirationDate
+    //     ? getTokenExpirationDate.getTime() - new Date().getTime()
+    //     : 0
+    // );
     localStorage.setItem('userData', JSON.stringify(user));
   }
 
