@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -35,27 +31,35 @@ export class UserService {
     return headers;
   }
 
-  getUsers(): Observable<any> {
+  getUsers(): Observable<UserDoc[]> {
     const headers = this.buildHeaders();
-    return this.http.get(`${environment.apiUrl}/users`, { headers });
+    return this.http.get<UserDoc[]>(`${environment.apiUrl}/users`, {
+      headers
+    });
     // .pipe(catchError(this.handleError));
   }
 
-  getUser(id: string): Observable<any> {
+  getUser(id: string): Observable<UserDoc> {
     const headers = this.buildHeaders();
-    return this.http.get(`${environment.apiUrl}/user/${id}`, { headers });
+    return this.http.get<UserDoc>(`${environment.apiUrl}/user/${id}`, {
+      headers
+    });
     // .pipe(catchError(this.handleError));
   }
 
-  createUser(user: UserDoc): Observable<any> {
+  createUser(user: UserDoc): Observable<UserDoc> {
     const headers = this.buildHeaders();
-    return this.http.post(`${environment.apiUrl}/user`, user, { headers });
+    return this.http.post<UserDoc>(`${environment.apiUrl}/user`, user, {
+      headers
+    });
     // .pipe(catchError(this.handleError));
   }
 
-  updateUser(id: string, user: UserDoc): Observable<any> {
+  updateUser(id: string, user: UserDoc): Observable<UserDoc> {
     const headers = this.buildHeaders();
-    return this.http.put(`${environment.apiUrl}/user/${id}`, user, { headers });
+    return this.http.put<UserDoc>(`${environment.apiUrl}/user/${id}`, user, {
+      headers
+    });
     // .pipe(catchError(this.handleError));
   }
 }
