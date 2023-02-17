@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ChartWeatherComponent implements OnInit {
   public weatherData: ChartDataset[] = [];
-  public weatherLabels: any[] = [];
+  public weatherLabels: any[] = []; // fix error on importing labels from ng2-charts
   public weatherType: ChartType = 'bar';
   @Input() city: string = 'Madrid';
 
@@ -22,14 +22,14 @@ export class ChartWeatherComponent implements OnInit {
       .get(
         `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${environment.openweathermapApiKey}&units=metric`
       )
-      .subscribe((response: any) => {
+      .subscribe((res: any) => {
         this.weatherData = [
           {
             data: [
-              response.main.temp,
-              response.main.feels_like,
-              response.main.temp_min,
-              response.main.temp_max
+              res.main.temp,
+              res.main.feels_like,
+              res.main.temp_min,
+              res.main.temp_max
             ],
             label: 'Temperature'
           }
