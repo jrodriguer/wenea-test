@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:3000/api',
+  apiUrl: 'http://localhost:3000',
   openweathermapApiKey: 'c3feba592977c4dadbfa3995925935ba',
   firebase: {
     apiKey: 'AIzaSyDXWEC_FNsxqHaHiqIipKjoMmf16nhaMzM',
