@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subscription, ReplaySubject, takeUntil } from 'rxjs';
+import { ReplaySubject, takeUntil } from 'rxjs';
 
 import { AuthService } from '../../auth/auth.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
@@ -20,7 +20,7 @@ import { UserDoc } from '../../../models/ddbb.model';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit, OnDestroy {
   public registerForm!: FormGroup;
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective =
@@ -40,6 +40,11 @@ export class RegisterComponent {
     this.initForm();
   }
 
+  ngOnDestroy() {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
+  }
+
   initForm() {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -48,7 +53,7 @@ export class RegisterComponent {
       address: this.formBuilder.group({
         street: [''],
         city: [''],
-        zip: ['', [, Validators.pattern(/^[0-9]{5}$/)]],
+        zip: ['', [Validators.pattern(/^[0-9]{5}$/)]],
         province: ['']
       })
     });
@@ -56,7 +61,6 @@ export class RegisterComponent {
 
   onSubmit() {
     const formValue: UserDoc = this.registerForm.value;
-    console.log(this.registerForm.value);
     this.authService
       .signUp(
         formValue.email,
@@ -65,7 +69,7 @@ export class RegisterComponent {
         formValue.address
       )
       .then(
-        (res) => {
+        () => {
           this._setUserDoc(formValue);
         },
         (err) => this.showErrorAlert(err)
@@ -76,7 +80,7 @@ export class RegisterComponent {
     this.userService
       .createUser(registration)
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((res) => {
+      .subscribe(() => {
         // this.router.navigate(['/']);
       });
   }
