@@ -1,16 +1,4 @@
-<header class="navbar flex-md-nowrap p-0 shadow p-2">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"></a>
-  <button
-    class="navbar-toggler position-absolute d-md-none collapsed"
-    type="button"
-    data-bs-toggle="collapse"
-    data-bs-target="#sidebarMenu"
-    aria-controls="sidebarMenu"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<header class="navbar flex-md-nowrap p-2 shadow fixed-top">
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
       <a class="nav-link pxd-3" href="#">Sign out</a>
@@ -18,7 +6,7 @@
   </div>
 </header>
 
-<div class="nav-side-menu">
+<div class="nav-side-menu fixed-top">
   <div class="brand p-2">
     <a href="https://wenea.com/international/">
       <img
@@ -52,6 +40,12 @@
   </div>
 
   <app-chart-weather></app-chart-weather>
+
+  <div class="card">
+    <div class="card-body">
+      <button class="btn btn-primary" (click)="openModal()">Open Modal</button>
+    </div>
+  </div>
 
   <!-- <app-animated-chart></app-animated-chart> -->
 

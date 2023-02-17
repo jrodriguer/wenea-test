@@ -1,8 +1,8 @@
 .nav-side-menu {
+  z-index: 2;
   overflow: auto;
   font-weight: 200;
   background-color: var(--color-grey-medium);
-  position: fixed;
   top: 0px;
   width: 300px;
   height: 100%;
@@ -12,6 +12,10 @@
     display: block;
     text-align: center;
   }
+}
+
+header {
+  z-index: 1;
 }
 
 .nav-link {
