@@ -2,15 +2,13 @@ import {
   Component,
   ComponentFactoryResolver,
   ViewChild,
-  OnDestroy,
-  OnInit
+  OnDestroy
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subscription, ReplaySubject, takeUntil } from 'rxjs';
+import { ReplaySubject, takeUntil } from 'rxjs';
 
 import { AlertComponent } from '../../shared/alert/alert.component';
-import { AuthResponseData } from '../../../models/auth-model.temp';
 import { AuthService } from '../../auth/auth.service';
 import { UserService } from '../../services/user.service';
 import { PlaceholderDirective } from '../../shared/placeholder/placeholder.directive';
@@ -20,7 +18,7 @@ import { PlaceholderDirective } from '../../shared/placeholder/placeholder.direc
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnDestroy {
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective =
     {} as PlaceholderDirective;
@@ -32,8 +30,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     private componentFactoryResolver: ComponentFactoryResolver
   ) {}
 
-  ngOnInit() {}
-
   ngOnDestroy() {
     this.destroyed$.next(true);
     this.destroyed$.complete();
@@ -43,7 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     const email = form.value.email;
     const pw = form.value.password;
     this.authService.signIn(email, pw).then(
-      (res) => {
+      () => {
         // this.router.navigate(['/']);
       },
       (err) => this.showErrorAlert(err)
