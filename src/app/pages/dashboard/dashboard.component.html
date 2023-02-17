@@ -1,8 +1,6 @@
 <header class="navbar flex-md-nowrap p-2 shadow fixed-top">
   <div class="navbar-nav">
-    <div class="nav-item text-nowrap">
-      <a class="nav-link pxd-3" href="#">Sign out</a>
-    </div>
+    <span class="nav-link pxd-3">Sign out</span>
   </div>
 </header>
 
@@ -19,10 +17,10 @@
   <div class="menu-list">
     <ul id="menu-content" class="menu-content collapse out">
       <li class="active">
-        <a href="#"> <i class="fa fa-dashboard fa-lg"></i> Dashboard </a>
+        <a> <i class="fa fa-dashboard fa-lg"></i> Dashboard </a>
       </li>
-      <li>
-        <a href="#"> <i class="fa fa-user fa-lg"></i> Profile </a>
+      <li (click)="openModal()">
+        <a> <i class="fa fa-user fa-lg"></i> Edit credentials </a>
       </li>
     </ul>
   </div>
@@ -40,12 +38,6 @@
   </div>
 
   <app-chart-weather></app-chart-weather>
-
-  <div class="card">
-    <div class="card-body">
-      <button class="btn btn-primary" (click)="openModal()">Open Modal</button>
-    </div>
-  </div>
 
   <!-- <app-animated-chart></app-animated-chart> -->
 
