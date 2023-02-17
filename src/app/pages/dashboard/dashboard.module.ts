@@ -4,13 +4,17 @@ import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../../shared/shared.module';
 import { DashboardComponent } from './dashboard.component';
+import { MapModule } from '../../components/map/map.module';
+import { ChartWeatherModule } from '../../components/chart-weather/chart-weather.module';
 
 @NgModule({
   declarations: [DashboardComponent],
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild([{ path: '', component: DashboardComponent }])
+    RouterModule.forChild([{ path: '', component: DashboardComponent }]),
+    MapModule,
+    ChartWeatherModule
   ]
 })
 export class DashboardModule {}

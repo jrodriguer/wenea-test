@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   apiUrl: 'http://localhost:3000/api',
+  openweathermapApiKey: 'd3c76beb3974ab76330384df8c40dca4',
   firebase: {
     apiKey: 'AIzaSyDXWEC_FNsxqHaHiqIipKjoMmf16nhaMzM',
     authDomain: 'wenea-thechnical.firebaseapp.com',

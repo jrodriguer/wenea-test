@@ -30,16 +30,30 @@
   </div>
   <div class="menu-list">
     <ul id="menu-content" class="menu-content collapse out">
-      <li>
+      <li class="active">
         <a href="#"> <i class="fa fa-dashboard fa-lg"></i> Dashboard </a>
       </li>
-      <li
-        data-toggle="collapse"
-        data-target="#detailsCollapse"
-        class="collapsed active"
-      >
+      <li>
         <a href="#"> <i class="fa fa-user fa-lg"></i> Profile </a>
       </li>
     </ul>
   </div>
 </div>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="chartjs-size-monitor">
+    <div class="chartjs-size-monitor-expand"><div class=""></div></div>
+    <div class="chartjs-size-monitor-shrink"><div class=""></div></div>
+  </div>
+  <div
+    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+  >
+    <h2>Dashboard</h2>
+  </div>
+
+  <app-chart-weather></app-chart-weather>
+
+  <!-- <app-animated-chart></app-animated-chart> -->
+
+  <!-- <app-map></app-map> -->
+</main>
