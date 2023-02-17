@@ -40,7 +40,7 @@ export class LoginComponent implements OnDestroy {
     const pw = form.value.password;
     this.authService.signIn(email, pw).then(
       () => {
-        // this.router.navigate(['/']);
+        this.router.navigate(['dashboard']);
       },
       (err) => this.showErrorAlert(err)
     );

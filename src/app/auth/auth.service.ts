@@ -81,36 +81,6 @@ export class AuthService {
       );
   }
 
-  autoLogin() {
-    const userData: {
-      address: Address;
-      email: string;
-      uid: string;
-      name: string;
-      _token: string;
-      _tokenExpirationDate: string;
-    } = JSON.parse(localStorage.getItem('userData') || '{}');
-    if (!userData) {
-      return;
-    }
-
-    const userToken = userData._token;
-    const tokenExpirationDate = new Date(userData._tokenExpirationDate);
-    const currentUser = new User(
-      userData.email,
-      userData.uid,
-      userData.name,
-      userToken,
-      tokenExpirationDate,
-      userData.address
-    );
-    console.info('auto login', currentUser);
-    if (currentUser.token) {
-      this.userSubject.next(currentUser);
-      this.autoLogout(tokenExpirationDate.getTime() - new Date().getTime());
-    }
-  }
-
   logout() {
     this.afAuth.signOut();
     this.userSubject.next(null);
