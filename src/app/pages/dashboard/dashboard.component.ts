@@ -38,15 +38,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     modalRef.result.then(
       (result) => {
         this.authService.updateCredentials(result.email, result.password).then(
-          (user) => {
-            console.log(user);
-            // this.userService
-            //   .updateUser()
-            //   .pipe(takeUntil(this.destroyed$))
-            //   .subscribe((user: any) => {
-            //     console.log(user);
-            //   });
-            this.router.navigate(['dashboard']);
+          () => {
+            this.router.navigate(['login']);
           },
           (err) => console.error(err)
         );
