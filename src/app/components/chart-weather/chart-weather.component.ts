@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ChartType, ChartDataset } from 'chart.js';
 
 import { environment } from '../../../environments/environment';
@@ -18,8 +18,9 @@ export class ChartWeatherComponent implements OnInit {
   constructor(private http: HttpClient) {}
   ngOnInit(): void {
     this.http
+      // `http://cors-anywhere.herokuapp.com
       .get(
-        `http://api.openweathermap.org/data/2.5/weather?q=${this.city}&APPID=${environment.openweathermapApiKey}`
+        `${environment.openweathermapApiUrl}/data/2.5/weather?q=${this.city}&APPID=${environment.openweathermapApiKey}`
       )
       .subscribe((res: any) => {
         this.weatherData = [

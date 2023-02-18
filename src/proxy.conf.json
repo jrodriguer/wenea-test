@@ -1,0 +1,11 @@
+{
+  "/api/*": {
+    "target": "https://samples.openweathermap.org/",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/": ""
+    }
+  }
+}
