@@ -1,6 +1,6 @@
 <ng-template appPlaceholder></ng-template>
-<div class="container text-center">
-  <div class="form-signup">
+<div class="flex-container text-center">
+  <div class="form-wrap">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <h1 class="h3 mb-3 fw-normal">Register</h1>
       <div class="form-floating">
@@ -76,7 +76,7 @@
         </div>
       </div>
       <button
-        class="w-100 btn btn-lg btn-primary"
+        class="welcome-btn w-100 btn btn-lg btn-primary"
         type="submit"
         [disabled]="registerForm.invalid"
       >
