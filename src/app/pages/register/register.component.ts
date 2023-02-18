@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ReplaySubject, takeUntil } from 'rxjs';
+import { takeUntil, Subject } from 'rxjs';
 
 import { AuthService } from '../../auth/auth.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
@@ -22,7 +22,7 @@ import { UserDoc } from '../../../models/ddbb.model';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   public registerForm!: FormGroup;
-  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
+  private destroyed$ = new Subject<void>();
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective =
     {} as PlaceholderDirective;
 
@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.destroyed$.next(true);
+    this.destroyed$.next();
     this.destroyed$.complete();
   }
 
@@ -81,7 +81,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       .createUser(registration)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
-        // this.router.navigate(['/']);
+        this.router.navigate(['dashboard']);
       });
   }
 

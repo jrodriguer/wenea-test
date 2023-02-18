@@ -16,11 +16,10 @@ export class ChartWeatherComponent implements OnInit {
   @Input() city: string = 'Madrid';
 
   constructor(private http: HttpClient) {}
-
   ngOnInit(): void {
     this.http
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${environment.openweathermapApiKey}&units=metric`
+        `http://api.openweathermap.org/data/2.5/weather?q=${this.city}&APPID=${environment.openweathermapApiKey}`
       )
       .subscribe((res: any) => {
         this.weatherData = [

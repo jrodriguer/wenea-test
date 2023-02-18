@@ -6,11 +6,10 @@ import {
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ReplaySubject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AuthService } from '../../auth/auth.service';
-import { UserService } from '../../services/user.service';
 import { PlaceholderDirective } from '../../shared/placeholder/placeholder.directive';
 
 @Component({
@@ -19,19 +18,18 @@ import { PlaceholderDirective } from '../../shared/placeholder/placeholder.direc
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnDestroy {
-  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
+  private destroyed$ = new Subject<void>();
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective =
     {} as PlaceholderDirective;
 
   constructor(
     private authService: AuthService,
-    private userService: UserService,
     private router: Router,
     private componentFactoryResolver: ComponentFactoryResolver
   ) {}
 
   ngOnDestroy() {
-    this.destroyed$.next(true);
+    this.destroyed$.next();
     this.destroyed$.complete();
   }
 

@@ -65,6 +65,23 @@ export class AuthService {
       .catch((error) => this._handleError(error));
   }
 
+  updateCredentials(email: string, password: string): Promise<void> {
+    return this.afAuth.currentUser.then((user) => {
+      if (user) {
+        console.log(user);
+        user
+          .updateEmail(email)
+          .then(() => console.log('Email updated'))
+          .catch((error) => this._handleError(error));
+
+        user
+          .updatePassword(password)
+          .then(() => console.log('Password updated'))
+          .catch((error) => this._handleError(error));
+      }
+    });
+  }
+
   private _getUserDocByEmail(email: string): Observable<UserDoc | null> {
     return this.afs
       .collection<UserDoc>('users', (ref) => ref.where('email', '==', email))
