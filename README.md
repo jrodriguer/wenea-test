@@ -1,14 +1,53 @@
-# WeneaTest
+<h1 align="center">WeneaTest - Web test.</h1>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.1.
+<p align="center">
+  <img src="src/assets/images/wenea-logo.png" alt="angular-logo" width="120px" height="120px"/>
+  <br>
+  <i>Wenea offers intelligent charging and energy management solutions through its platform and fast charging network,
+    <br> thus facilitating the adoption of the electric vehicle and fulfilling the promise that users will always have charging available.</i>
+  <br>
+</p>
 
-## Development server
+<p align="center">
+  <a href="https://wenea.com/international/"><strong>wenea.com/international</strong></a>
+  <br>
+</p>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## What is this project about?
 
-## Code scaffolding
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.5.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Web project for tecnhical [Wenea](https://wenea.com/international/) test. 
+Simply displays a personalized dashboard that will include a login and registration. 
+
+## Development Setup
+
+### Prerequisites
+
+- Install [Node.js] which includes [Node Package Manager][npm]
+
+### Setting Up a Project
+
+Install the Angular CLI globally:
+
+```
+npm install -g @angular/cli
+```
+
+Run the application:
+
+```
+cd [PROJECT NAME]
+ng serve
+```
+
+Angular is cross-platform, fast, scalable, has incredible tooling, and is loved by millions.
+
+## Functionalities
+
+- The user must be able to create a new account and log in with said data introduced.
+- Once logged in, you can modify said data.
+- You will be able to see different types of charts on the dashboard.
 
 ## Bootstrap Component Library
 
