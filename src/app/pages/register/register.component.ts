@@ -23,10 +23,9 @@ import { UserDoc } from '../../../models/ddbb.model';
 export class RegisterComponent implements OnInit, OnDestroy {
   public registerForm!: FormGroup;
   private destroyed$ = new Subject<void>();
+  public provinces = [{ name: 'Madrid', code: 'MD' }];
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective =
     {} as PlaceholderDirective;
-
-  provinces = [{ name: 'Madrid', code: 'MD' }];
 
   constructor(
     private authService: AuthService,
@@ -37,7 +36,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.initForm();
+    this._initForm();
   }
 
   ngOnDestroy() {
@@ -45,7 +44,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.destroyed$.complete();
   }
 
-  initForm() {
+  private _initForm() {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
