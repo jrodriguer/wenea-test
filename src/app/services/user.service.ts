@@ -12,7 +12,7 @@ import { UserDoc } from '../../models/ddbb.model';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  buildHeaders() {
+  private buildHeaders() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${environment.apiUrl}`
@@ -56,7 +56,8 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  private handleError(error: any) {
+  // TODO: neccesary method?
+  private handleError(error: any): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
     } else {
