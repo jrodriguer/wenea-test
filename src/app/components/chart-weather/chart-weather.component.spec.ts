@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgChartsModule } from 'ng2-charts';
 
 import { ChartWeatherComponent } from './chart-weather.component';
 
@@ -8,6 +10,7 @@ describe('ChartWeatherComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [NgChartsModule, HttpClientTestingModule],
       declarations: [ChartWeatherComponent]
     }).compileComponents();
 
