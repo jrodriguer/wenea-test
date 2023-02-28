@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http/testing';
 
 import { environment } from '../../environments/environment';
-import { UserService } from './users.service';
+import { UserService } from './user.service';
 import { UserDoc } from '../../models/ddbb.model';
 
 describe('UserService', () => {
