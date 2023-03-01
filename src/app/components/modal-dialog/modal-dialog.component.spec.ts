@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ModalDialogComponent } from './modal-dialog.component';
 
@@ -8,7 +10,9 @@ describe('ModalDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ModalDialogComponent]
+      imports: [ReactiveFormsModule, NgbModule],
+      declarations: [ModalDialogComponent],
+      providers: [NgbActiveModal]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ModalDialogComponent);
