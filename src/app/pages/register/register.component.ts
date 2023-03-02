@@ -71,7 +71,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         () => {
           this._setUserDoc(formValue);
         },
-        (err) => this.showErrorAlert(err)
+        (err) => this._showErrorAlert(err)
       );
   }
 
@@ -84,7 +84,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       });
   }
 
-  private showErrorAlert(message: string) {
+  private _showErrorAlert(message: string) {
     console.log(message);
     const alertFactory =
       this.componentFactoryResolver.resolveComponentFactory(AlertComponent);

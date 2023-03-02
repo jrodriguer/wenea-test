@@ -40,11 +40,11 @@ export class LoginComponent implements OnDestroy {
       () => {
         this.router.navigate(['dashboard']);
       },
-      (err) => this.showErrorAlert(err)
+      (err) => this._showErrorAlert(err)
     );
   }
 
-  private showErrorAlert(message: string) {
+  private _showErrorAlert(message: string) {
     const alertFactory =
       this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
 
