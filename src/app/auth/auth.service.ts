@@ -120,7 +120,7 @@ export class AuthService {
 
     const token = userData._token;
     const tokenExpirationDate = new Date(userData._tokenExpirationDate);
-    const currentUser: User = new User(
+    const currentUser = new User(
       userData.email,
       userData.uid,
       userData.name,
