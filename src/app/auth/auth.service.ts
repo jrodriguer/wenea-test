@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -21,52 +20,60 @@ export class AuthService {
   constructor(
     private afs: AngularFirestore,
     private afAuth: AngularFireAuth,
-    private http: HttpClient,
     private router: Router
   ) {}
 
-  signUp(email: string, password: string, name: string, address: Address) {
-    return this.afAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredential: UserCredential) => {
-        const token = userCredential.user?.getIdToken();
-        token?.then((idToken) => {
-          this._handleAuth(
-            email,
-            userCredential.user?.uid || '',
-            name,
-            idToken,
-            address
-          );
-        });
-      })
-      .catch((error) => this._handleError(error));
+  async signUp(
+    email: string,
+    password: string,
+    name: string,
+    address: Address
+  ) {
+    try {
+      const userCredential: UserCredential =
+        await this.afAuth.createUserWithEmailAndPassword(email, password);
+      const token = userCredential.user?.getIdToken();
+      token?.then((idToken) => {
+        this._handleAuth(
+          email,
+          userCredential.user?.uid || '',
+          name,
+          idToken,
+          address
+        );
+      });
+      return userCredential;
+    } catch (error) {
+      return await this._handleError(error);
+    }
   }
 
-  signIn(email: string, password: string) {
-    return this.afAuth
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredential: UserCredential) => {
-        const token = userCredential.user?.getIdToken();
-        token?.then((idToken: string) => {
-          this._getUserDocByEmail(email).subscribe((user: UserDoc | null) => {
-            if (user) {
-              this._handleAuth(
-                email,
-                userCredential.user?.uid || '',
-                user.name,
-                idToken,
-                user.address
-              );
-            }
-          });
+  async signIn(email: string, password: string) {
+    try {
+      const userCredential: UserCredential =
+        await this.afAuth.signInWithEmailAndPassword(email, password);
+      const token = userCredential.user?.getIdToken();
+      token?.then((idToken: string) => {
+        this._getUserDocByEmail(email).subscribe((user: UserDoc | null) => {
+          if (user) {
+            this._handleAuth(
+              email,
+              userCredential.user?.uid || '',
+              user.name,
+              idToken,
+              user.address
+            );
+          }
         });
-      })
-      .catch((error) => this._handleError(error));
+      });
+      return userCredential;
+    } catch (error) {
+      return await this._handleError(error);
+    }
   }
 
-  updateCredentials(email: string, password: string): Promise<void> {
-    return this.afAuth.currentUser.then((user) => {
+  async updateCredentials(email: string, password: string): Promise<void> {
+    return await this.afAuth.currentUser.then((user) => {
       if (user) {
         console.log(user);
         user
