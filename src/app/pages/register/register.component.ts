@@ -56,8 +56,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
         province: ['']
       })
     });
-
-    console.log(this.registerForm.controls['address'].get('city'));
   }
 
   onSubmit() {
