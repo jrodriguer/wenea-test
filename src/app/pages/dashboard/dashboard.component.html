@@ -1,6 +1,8 @@
 <header class="navbar flex-md-nowrap p-2 shadow fixed-top">
-  <div class="navbar-nav">
-    <span class="nav-link pxd-3">Sign out</span>
+  <div class="navbar-nav ml-auto">
+    <button (click)="onSignOut()" type="button" class="btn btn-light">
+      Sign out
+    </button>
   </div>
 </header>
 
@@ -27,7 +29,7 @@
 </div>
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-  <div class="chartjs-size-monitor">
+  <!-- <div class="chartjs-size-monitor">
     <div class="chartjs-size-monitor-expand"><div class=""></div></div>
     <div class="chartjs-size-monitor-shrink"><div class=""></div></div>
   </div>
@@ -36,15 +38,15 @@
   >
     <h2>Dashboard</h2>
   </div>
+ -->
+  <!-- <app-chart-weather></app-chart-weather> -->
 
-  <app-chart-weather></app-chart-weather>
-
-  <div class="container">
+  <!-- <div class="container">
     <div class="row">
       <div class="col-lg-8"></div>
       <div class="col-lg-4">
         <app-map></app-map>
       </div>
     </div>
-  </div>
+   </div>-->
 </main>

@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { takeUntil, Subject } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../auth/auth.service';
@@ -12,9 +11,7 @@ import { ModalDialogComponent } from '../../components/modal-dialog/modal-dialog
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
-  private destroyed$ = new Subject<void>();
-
+export class DashboardComponent implements OnInit {
   constructor(
     private userService: UserService,
     private authService: AuthService,
@@ -23,11 +20,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {}
-
-  ngOnDestroy() {
-    this.destroyed$.next();
-    this.destroyed$.complete();
-  }
 
   onSignOut() {
     this.authService.logout();
