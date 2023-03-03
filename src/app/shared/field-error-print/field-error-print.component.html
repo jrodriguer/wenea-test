@@ -1,0 +1,20 @@
+<div
+  class="text-danger"
+  *ngIf="control && control.errors && (control.dirty || control.touched)"
+>
+  <div *ngIf="control.errors['required']">
+    <small>This field is required</small>
+  </div>
+  <div *ngIf="control.errors['minlength']">
+    <small>This value is shorter than required</small>
+  </div>
+  <div *ngIf="control.errors['email']">
+    <small>This email not valid</small>
+  </div>
+  <div *ngIf="control.errors['pattern']">
+    <small>This format not valid</small>
+  </div>
+  <div *ngIf="control.errors['confirmPassword']">
+    <small>This password not same</small>
+  </div>
+</div>
