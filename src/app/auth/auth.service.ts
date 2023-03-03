@@ -14,7 +14,7 @@ import { Address, UserDoc } from '../../models/ddbb.model';
 })
 export class AuthService {
   public tokenExpirationTimer: any;
-  private userSubject = new BehaviorSubject<User | null>(null);
+  private userSubject = new BehaviorSubject<User | null>(null); // store and info user state
   public user$: Observable<User | null> = this.userSubject.asObservable();
 
   constructor(
@@ -118,20 +118,22 @@ export class AuthService {
       return;
     }
 
-    const userToken = userData._token;
+    const token = userData._token;
     const tokenExpirationDate = new Date(userData._tokenExpirationDate);
-    const currentUser = new User(
+    const currentUser: User = new User(
       userData.email,
       userData.uid,
       userData.name,
-      userToken,
+      token,
       tokenExpirationDate,
       userData.address
     );
+
     console.info('auto login', currentUser);
     if (currentUser.token) {
       this.userSubject.next(currentUser);
       this.autoLogout(tokenExpirationDate.getTime() - new Date().getTime());
+      this.router.navigate(['dashboard']);
     }
   }
 

@@ -6,7 +6,6 @@ export class User {
     public uid: string,
     public name: string,
     private _token: string,
-    // public password?: string
     private _tokenExpirationDate?: Date,
     public address?: Address
   ) {}
@@ -17,5 +16,9 @@ export class User {
     }
 
     return this._token;
+  }
+
+  set token(token) {
+    this._token = token!;
   }
 }
