@@ -1,12 +1,58 @@
-<header class="navbar flex-md-nowrap p-2 shadow fixed-top">
+<!-- <header class="navbar flex-md-nowrap p-2 shadow fixed-top">
   <div class="navbar-nav ml-auto">
     <button (click)="onSignOut()" type="button" class="btn btn-light">
       Sign out
     </button>
   </div>
-</header>
+</header> -->
 
-<div class="nav-side-menu fixed-top">
+<nav class="navbar navbar-light bg-light p-3">
+  <div
+    class="d-flex col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 flex-wrap flex-md-nowrap justify-content-between"
+  >
+    <div class="brand p-2">
+      <a target="_blank" href="https://wenea.com/international/">
+        <img
+          class="align-middle img-fluid"
+          src="../../../assets/images/wenea-logo.png"
+          alt=""
+        />
+      </a>
+    </div>
+    <button
+      class="navbar-toggler d-md-none collapsed mb-3"
+      type="button"
+      data-toggle="collapse"
+      data-target="#sidebar"
+      aria-controls="sidebar"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+  <div
+    class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0"
+  >
+    <div class="dropdown">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Hello, {{ name }}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><a class="dropdown-item" href="#">Sign out</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- <div class="nav-side-menu fixed-top">
   <div class="brand p-2">
     <a target="_blank" href="https://wenea.com/international/">
       <img
@@ -26,10 +72,22 @@
       </li>
     </ul>
   </div>
+</div> -->
+
+<div class="container-fluid">
+  <div class="row">
+    <nav
+      id="sidebar"
+      class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+    ></nav>
+    <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+      <h1 class="h2">Dashboard</h1>
+    </main>
+  </div>
 </div>
 
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-  <!-- <div class="chartjs-size-monitor">
+<!-- <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="chartjs-size-monitor">
     <div class="chartjs-size-monitor-expand"><div class=""></div></div>
     <div class="chartjs-size-monitor-shrink"><div class=""></div></div>
   </div>
@@ -38,15 +96,6 @@
   >
     <h2>Dashboard</h2>
   </div>
- -->
-  <!-- <app-chart-weather></app-chart-weather> -->
 
-  <!-- <div class="container">
-    <div class="row">
-      <div class="col-lg-8"></div>
-      <div class="col-lg-4">
-        <app-map></app-map>
-      </div>
-    </div>
-   </div>-->
-</main>
+  <app-chart-weather [city]="address!.city"></app-chart-weather>
+</main> -->
