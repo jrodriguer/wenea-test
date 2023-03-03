@@ -12,6 +12,9 @@
           formControlName="name"
           placeholder="Name"
         />
+        <app-field-error-print
+          [control]="registerForm.controls['name']"
+        ></app-field-error-print>
         <label for="name">Name</label>
       </div>
       <div class="form-floating">
@@ -23,8 +26,12 @@
           aria-describedby="emailHelp"
           placeholder="Enter email"
         />
-        <label for="floatingInput">Email address</label>
+        <app-field-error-print
+          [control]="registerForm.controls['email']"
+        ></app-field-error-print>
+        <label for="email">Email address</label>
       </div>
+
       <div class="form-floating">
         <input
           type="password"
@@ -34,7 +41,10 @@
           minlength="6"
           placeholder="Password"
         />
-        <label for="floatingPassword">Password</label>
+        <app-field-error-print
+          [control]="registerForm.controls['password']"
+        ></app-field-error-print>
+        <label for="password">Password</label>
       </div>
       <div class="address-container" formGroupName="address">
         <div class="form-floating">
@@ -45,7 +55,7 @@
             formControlName="street"
             placeholder="Street"
           />
-          <label for="floatingInput">Street</label>
+          <label for="street">Street</label>
         </div>
         <div class="form-floating">
           <input
@@ -55,7 +65,10 @@
             formControlName="city"
             placeholder="City"
           />
-          <label for="floatingInput">City</label>
+          <app-field-error-print
+            [control]="registerForm.controls['address'].get('city')"
+          ></app-field-error-print>
+          <label for="city">City</label>
         </div>
         <div class="form-floating">
           <input
@@ -65,6 +78,9 @@
             formControlName="zip"
             placeholder="Zip"
           />
+          <app-field-error-print
+            [control]="registerForm.controls['address'].get('zip')"
+          ></app-field-error-print>
           <label for="floatingInput">Zip</label>
         </div>
         <div class="form-floating">

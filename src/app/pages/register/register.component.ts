@@ -23,7 +23,7 @@ import { UserDoc } from '../../../models/ddbb.model';
 export class RegisterComponent implements OnInit, OnDestroy {
   public registerForm!: FormGroup;
   private destroyed$ = new Subject<void>();
-  public provinces = [{ name: 'Madrid', code: 'MD' }];
+  public provinces = [{ name: 'Madrid', code: 'M ' }];
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective =
     {} as PlaceholderDirective;
 
@@ -51,11 +51,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
       name: ['', Validators.required],
       address: this.formBuilder.group({
         street: [''],
-        city: [''],
+        city: ['', [Validators.pattern('^[a-zA-Z]+$')]],
         zip: ['', [Validators.pattern(/^[0-9]{5}$/)]],
         province: ['']
       })
     });
+
+    console.log(this.registerForm.controls['address'].get('city'));
   }
 
   onSubmit() {
