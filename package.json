@@ -53,6 +53,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
+    "ng2-charts-schematics": "^0.1.7",
     "onchange": "^7.1.0",
     "prettier": "^2.8.4",
     "typescript": "^4.9.5"
