@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public userLogued$: any;
   private destroyed$ = new Subject<void>();
   public address: Address | undefined;
+  public name: string = '';
 
   constructor(
     private authService: AuthService,
@@ -29,6 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.userLogued$ = this.authService.user$.pipe(filter((acc) => !!acc));
     this.userLogued$.pipe(takeUntil(this.destroyed$)).subscribe((v: User) => {
       this.address = v.address;
+      this.name = v.name;
     });
   }
 
