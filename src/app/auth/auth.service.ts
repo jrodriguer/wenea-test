@@ -50,23 +50,24 @@ export class AuthService {
 
   async signIn(email: string, password: string) {
     try {
-      const userCredential: UserCredential =
-        await this.afAuth.signInWithEmailAndPassword(email, password);
-      const token = userCredential.user?.getIdToken();
-      token?.then((idToken: string) => {
-        this._getUserDocByEmail(email).subscribe((user: UserDoc | null) => {
-          if (user) {
-            this._handleAuth(
-              email,
-              userCredential.user?.uid || '',
-              user.name,
-              idToken,
-              user.address
-            );
-          }
+      return await this.afAuth
+        .signInWithEmailAndPassword(email, password)
+        .then((userCredential: UserCredential) => {
+          console.log(userCredential);
+          userCredential.user?.getIdToken().then((idToken: string) => {
+            this._getUserDocByEmail(email).subscribe((user: UserDoc | null) => {
+              if (user) {
+                this._handleAuth(
+                  email,
+                  userCredential.user?.uid || '',
+                  user.name,
+                  idToken,
+                  user.address
+                );
+              }
+            });
+          });
         });
-      });
-      return userCredential;
     } catch (error) {
       return await this._handleError(error);
     }
@@ -128,8 +129,6 @@ export class AuthService {
       tokenExpirationDate,
       userData.address
     );
-
-    console.info('auto login', currentUser);
     if (currentUser.token) {
       this.userSubject.next(currentUser);
       this.autoLogout(tokenExpirationDate.getTime() - new Date().getTime());
