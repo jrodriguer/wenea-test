@@ -132,6 +132,44 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-12 col-xl-8 mb-4 mb-lg-0">
+          <div class="card">
+            <h5 class="card-header">Latest transactions</h5>
+            <div class="card-body">
+              <ng-container
+                *ngIf="users; then registers; else empty"
+              ></ng-container>
+              <ng-template #registers>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Order</th>
+                        <th scope="col">Living</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Identificacion</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let user of users">
+                      <tr>
+                        <th scope="row">{{ user.order }}</th>
+                        <td>{{ user.addressRe }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>
+                          <a href="#" class="btn btn-sm btn-primary">View</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <a href="#" class="btn btn-block btn-light">View all</a>
+              </ng-template>
+              <ng-template #empty> </ng-template>
+            </div>
+          </div>
+        </div>
         <div class="col-12 col-xl-4">
           <div class="card">
             <h5 class="card-header"></h5>
