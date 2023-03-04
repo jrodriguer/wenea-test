@@ -43,7 +43,7 @@ ng serve
 
 Angular is cross-platform, fast, scalable, has incredible tooling, and is loved by millions.
 
-## Functionalities
+## Functionalities - Goals to meet
 
 - The user must be able to create a new account and log in with said data introduced.
 - Once logged in, you can modify said data.
@@ -53,9 +53,9 @@ Angular is cross-platform, fast, scalable, has incredible tooling, and is loved 
 
 This project uses the Bootstrap component library. You can find documentation and examples on the [official Bootstrap website](https://getbootstrap.com/docs/5.1/components/).
 
-## Chart.js
+## Charts and graphs Chart.js
 
-This project uses the Chart.js library for creating charts and graphs. You can find documentation and examples on the [official Chart.js website](https://www.chartjs.org/docs/latest/).
+This project uses the [Chart.js](https://www.chartjs.org/docs/latest/) and [Chartist.js](https://gionkunz.github.io/chartist-js/index.html) libraries for creating charts and graphs.
 
 ## Firebase Authentication with Identity Platform
 
