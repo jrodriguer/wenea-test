@@ -49,28 +49,24 @@ export class AuthService {
   }
 
   async signIn(email: string, password: string) {
-    try {
-      return await this.afAuth
-        .signInWithEmailAndPassword(email, password)
-        .then((userCredential: UserCredential) => {
-          console.log(userCredential);
-          userCredential.user?.getIdToken().then((idToken: string) => {
-            this._getUserDocByEmail(email).subscribe((user: UserDoc | null) => {
-              if (user) {
-                this._handleAuth(
-                  email,
-                  userCredential.user?.uid || '',
-                  user.name,
-                  idToken,
-                  user.address
-                );
-              }
-            });
+    return await this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredential: UserCredential) => {
+        userCredential.user?.getIdToken().then((idToken: string) => {
+          this._getUserDocByEmail(email).subscribe((user: UserDoc | null) => {
+            if (user) {
+              this._handleAuth(
+                email,
+                userCredential.user?.uid || '',
+                user.name,
+                idToken,
+                user.address
+              );
+            }
           });
         });
-    } catch (error) {
-      return await this._handleError(error);
-    }
+      })
+      .catch((error) => this._handleError(error));
   }
 
   async updateCredentials(email: string, password: string): Promise<void> {
