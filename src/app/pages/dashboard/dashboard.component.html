@@ -92,41 +92,33 @@
       <div class="row my-4">
         <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
           <div class="card">
-            <h5 class="card-header"></h5>
+            <h5 class="card-header">#1 Temperature</h5>
             <div class="card-body">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
-              <p class="card-text text-success"></p>
+              <app-chart-weather></app-chart-weather>
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
           <div class="card">
-            <h5 class="card-header"></h5>
+            <h5 class="card-header">#2 Temperature</h5>
             <div class="card-body">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
-              <p class="card-text text-success"></p>
+              <app-chart-weather [chartType]="'line'"></app-chart-weather>
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
           <div class="card">
             <h5 class="card-header"></h5>
             <div class="card-body">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
-              <p class="card-text text-danger"></p>
+              <!-- <app-chart-weather></app-chart-weather> -->
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+        <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
           <div class="card">
             <h5 class="card-header"></h5>
             <div class="card-body">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
-              <p class="card-text text-success"></p>
+              <!-- <app-chart-weather></app-chart-weather> -->
             </div>
           </div>
         </div>
@@ -151,30 +143,46 @@
                         <th scope="col"></th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let user of users">
+                    <tbody *ngFor="let user of users; let i = index">
                       <tr>
                         <th scope="row">{{ user.order }}</th>
                         <td>{{ user.addressRe }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.name }}</td>
                         <td>
-                          <a href="#" class="btn btn-sm btn-primary">View</a>
+                          <a
+                            class="btn btn-sm btn-primary"
+                            (click)="onInfoUser(users[i])"
+                            >View</a
+                          >
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-                <a href="#" class="btn btn-block btn-light">View all</a>
               </ng-template>
+              <a href="#" class="btn btn-block btn-light">View all</a>
               <ng-template #empty> </ng-template>
             </div>
           </div>
         </div>
         <div class="col-12 col-xl-4">
-          <div class="card">
-            <h5 class="card-header"></h5>
+          <div class="card mb-4">
+            <h5 class="card-header">Example WIP</h5>
             <div class="card-body">
-              <div id="traffic-chart"></div>
+              <div id="linear-chart"></div>
+            </div>
+          </div>
+          <div class="card mb-4">
+            <h5 class="card-header">Example WIP</h5>
+            <div class="card-body">
+              <div id="pie-chart"></div>
+            </div>
+          </div>
+          <div class="card">
+            <h5 class="card-header">Location</h5>
+            <div class="card-body">
+              <app-map></app-map>
             </div>
           </div>
         </div>
