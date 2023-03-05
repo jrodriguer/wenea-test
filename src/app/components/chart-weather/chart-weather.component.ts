@@ -12,8 +12,8 @@ import { environment } from '../../../environments/environment';
 export class ChartWeatherComponent implements OnInit {
   public weatherData: ChartDataset[] = [];
   public weatherLabels: any[] = []; // fix error on importing labels from ng2-charts
-  public weatherType: ChartType = 'bar';
   @Input() city: string = 'Madrid';
+  @Input() chartType: ChartType = 'bar';
 
   constructor(private http: HttpClient) {}
   ngOnInit(): void {
