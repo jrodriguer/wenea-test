@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard.component';
 import { MapModule } from '../../components/map/map.module';
 import { ModalDialogModule } from '../../components/modal-dialog/modal-dialog.module';
 import { ChartWeatherModule } from '../../components/chart-weather/chart-weather.module';
+import { ChartRandomModule } from '../../components/chart-random/chart-random.module';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -16,7 +17,8 @@ import { ChartWeatherModule } from '../../components/chart-weather/chart-weather
     RouterModule.forChild([{ path: '', component: DashboardComponent }]),
     MapModule,
     ChartWeatherModule,
-    ModalDialogModule
+    ModalDialogModule,
+    ChartRandomModule
   ]
 })
 export class DashboardModule {}

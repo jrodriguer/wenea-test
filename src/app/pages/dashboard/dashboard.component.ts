@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { filter, Observable, Subject, takeUntil } from 'rxjs';
-import { LineChart, PieChart } from 'chartist';
 
 import { AuthService } from '../../auth/auth.service';
 import { ModalDialogComponent } from '../../components/modal-dialog/modal-dialog.component';
@@ -46,7 +45,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
 
     this._loadUsersData();
-    this._buildCharts();
   }
 
   ngOnDestroy() {
@@ -69,30 +67,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
           };
         });
       });
-  }
-
-  private _buildCharts() {
-    // 1
-    new LineChart(
-      '#linear-chart',
-      {
-        labels: ['January', 'Februrary', 'March', 'April', 'May', 'June'],
-        series: [[23000, 25000, 19000, 34000, 56000, 64000]]
-      },
-      {
-        low: 0,
-        showArea: true
-      }
-    );
-    // 2
-    const data = {
-      series: [5, 3, 4]
-    };
-
-    new PieChart('#pie-chart', data, {
-      labelInterpolationFnc: (value) =>
-        Math.round((+value / data.series.reduce((a, b) => a + b)) * 100) + '%'
-    });
   }
 
   private _toGeographicalCoordinates(address: Address | undefined) {
