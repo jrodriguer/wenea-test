@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { filter, Subject, takeUntil } from 'rxjs';
+import { filter, Observable, Subject, takeUntil } from 'rxjs';
 // import 'chartist/dist/index.css';
 import { LineChart, PieChart } from 'chartist';
 
@@ -16,10 +16,10 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  public userLogued$: any; // TODO: confused type
+  public userLogued$!: Observable<User | null>;
   private destroyed$ = new Subject<void>();
   public address: Address | undefined;
-  public name: string = '';
+  public name: string | undefined;
   public users: any[] = [];
 
   constructor(
@@ -30,10 +30,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // consume for Subject
-    this.userLogued$ = this.authService.user$.pipe(filter((acc) => !!acc));
-    this.userLogued$.pipe(takeUntil(this.destroyed$)).subscribe((v: User) => {
-      this.address = v.address;
-      this.name = v.name;
+    this.userLogued$ = this.authService.user$.pipe(
+      filter((user) => !!user),
+      takeUntil(this.destroyed$)
+    );
+
+    this.userLogued$.subscribe((user) => {
+      this.address = user?.address;
+      this.name = user?.name;
     });
 
     this._loadUsersData();
