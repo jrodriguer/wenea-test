@@ -182,7 +182,7 @@
           <div class="card">
             <h5 class="card-header">Location</h5>
             <div *ngIf="coordinates" class="card-body">
-              <app-map [geoLocal]="coordinates"></app-map>
+              <app-map [geoLocal]="coordinates" [popup]="city"></app-map>
             </div>
           </div>
         </div>

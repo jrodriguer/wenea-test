@@ -18,7 +18,8 @@ import { GeocodingService } from '../../services/geocoding.service';
 export class DashboardComponent implements OnInit, OnDestroy {
   public userLogued$!: Observable<User | null>;
   private destroyed$ = new Subject<void>();
-  public name: string | undefined;
+  public name: string = '';
+  public city: string = '';
   public coordinates: { latitude: number; longitude: number } | undefined;
   public users: any[] = [];
 
@@ -37,8 +38,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
 
     this.userLogued$.subscribe((user) => {
-      this.name = user?.name;
-      this._toGeographicalCoordinates(user?.address);
+      if (user && user.address) {
+        this.name = user.name;
+        this.city = user.address.city;
+        this._toGeographicalCoordinates(user?.address);
+      }
     });
 
     this._loadUsersData();

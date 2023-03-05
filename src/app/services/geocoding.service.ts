@@ -18,7 +18,6 @@ export class GeocodingService {
     return this.http.get(url).pipe(
       map((response: any) => {
         const { lat, lng } = response.results[0].geometry;
-        console.log({ latitude: lat, longitude: lng });
         return { latitude: lat, longitude: lng };
       })
     );

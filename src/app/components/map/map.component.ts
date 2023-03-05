@@ -9,13 +9,14 @@ import * as L from 'leaflet';
 export class MapComponent implements OnInit {
   public map: any;
   @Input() geoLocal: { latitude: number; longitude: number } | undefined;
+  @Input() popup: string = '';
 
   constructor() {}
 
   ngOnInit() {
     this.map = L.map('map').setView([40.45, -3.8], 5);
 
-    // Add the base tile layer to the map
+    // base tile layer to the map
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
         'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
@@ -24,11 +25,12 @@ export class MapComponent implements OnInit {
       zoomOffset: -1
     }).addTo(this.map);
 
-    // Add a marker to the map
-    console.log(this.geoLocal);
-    // const marker = L.marker([51.5, -0.09]).addTo(map);
-
-    // Bind a popup to the marker
-    // marker.bindPopup('<b>New York City</b>').openPopup();
+    if (this.geoLocal) {
+      const marker = L.marker([
+        this.geoLocal.latitude,
+        this.geoLocal.longitude
+      ]).addTo(this.map);
+      marker.bindPopup(`<b>${this.popup}</b>`).openPopup();
+    }
   }
 }
