@@ -108,17 +108,17 @@
         </div>
         <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
           <div class="card">
-            <h5 class="card-header"></h5>
+            <h5 class="card-header">#3 Temperature</h5>
             <div class="card-body">
-              <!-- <app-chart-weather></app-chart-weather> -->
+              <app-chart-weather [chartType]="'scatter'"></app-chart-weather>
             </div>
           </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
           <div class="card">
-            <h5 class="card-header"></h5>
+            <h5 class="card-header">#4 Temperature</h5>
             <div class="card-body">
-              <!-- <app-chart-weather></app-chart-weather> -->
+              <!-- <app-chart-weather [chartType]="'doughnut'"></app-chart-weather> -->
             </div>
           </div>
         </div>
@@ -174,9 +174,9 @@
             </div>
           </div>
           <div class="card mb-4">
-            <h5 class="card-header">Example WIP</h5>
+            <h5 class="card-header">Example doughnut chart</h5>
             <div class="card-body">
-              <div id="pie-chart"></div>
+              <app-chart-weather [chartType]="'doughnut'"></app-chart-weather>
             </div>
           </div>
           <div class="card">
