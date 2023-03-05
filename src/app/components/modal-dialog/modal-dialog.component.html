@@ -1,52 +1,22 @@
 <div class="modal-header">
-  <h4 class="modal-title">Edit Credentials</h4>
-  <button
-    type="button"
-    class="close"
-    aria-label="Close"
-    (click)="activeModal.dismiss('Cross click')"
-  >
-    <span aria-hidden="true">&times;</span>
-  </button>
+  <h4 class="modal-title">View user info</h4>
 </div>
 <div class="modal-body">
-  <form [formGroup]="credentialsForm">
-    <div class="form-group">
-      <label for="email">Email address</label>
-      <input
-        type="email"
-        class="form-control"
-        id="email"
-        formControlName="email"
-        aria-describedby="emailHelp"
-        placeholder="Enter email"
-      />
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password"
-        formControlName="password"
-        minlength="6"
-        placeholder="Password"
-      />
-    </div>
-  </form>
+  <p class="text-lg-start">
+    {{ user.name }}
+  </p>
+  <p class="text-sm-start">
+    {{ user.email }}
+  </p>
+  <p class="text-md-start">
+    {{ user.address.street }}, {{ user.address.city }},
+    {{ user.address.province }}. CP.: {{ user.address.zip }}
+  </p>
 </div>
 <div class="modal-footer">
   <button
-    [disabled]="credentialsForm.invalid"
     type="button"
-    class="btn btn-outline-dark"
-    (click)="onClick(credentialsForm)"
-  >
-    Save
-  </button>
-  <button
-    type="button"
-    class="btn btn-outline-dark"
+    class="btn btn-sm btn-primary"
     (click)="activeModal.dismiss('Close click')"
   >
     Close

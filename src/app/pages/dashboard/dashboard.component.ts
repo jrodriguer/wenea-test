@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { filter, Observable, Subject, takeUntil } from 'rxjs';
+import { filter, Subject, takeUntil } from 'rxjs';
+// import 'chartist/dist/index.css';
+import { LineChart } from 'chartist';
 
 import { AuthService } from '../../auth/auth.service';
 import { ModalDialogComponent } from '../../components/modal-dialog/modal-dialog.component';
@@ -37,6 +39,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
 
     this._loadGeneralData();
+
+    new LineChart(
+      '#traffic-chart',
+      {
+        labels: ['January', 'Februrary', 'March', 'April', 'May', 'June'],
+        series: [[23000, 25000, 19000, 34000, 56000, 64000]]
+      },
+      {
+        low: 0,
+        showArea: true
+      }
+    );
   }
 
   ngOnDestroy() {
@@ -65,21 +79,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
-  openModal() {
-    const modalRef = this.modalService.open(ModalDialogComponent);
-    modalRef.result.then(
-      (result) => {
-        this.authService.updateCredentials(result.email, result.password).then(
-          () => {
-            this.router.navigate(['login']);
-          },
-          (err) => console.error(err)
-        );
-        this.authService.logout();
-      },
-      (reason) => {
-        console.info(`Dismissed with: ${reason}`);
-      }
-    );
+  onInfoUser(selected: UserDoc) {
+    const modalRef = this.modalService.open(ModalDialogComponent, {
+      centered: true,
+      backdrop: 'static'
+    });
+    (modalRef.componentInstance as ModalDialogComponent).user = selected;
+    // modalRef.result.then(
+    //   (result) => {
+    //     this.authService.updateCredentials(result.email, result.password).then(
+    //       () => {
+    //         this.router.navigate(['login']);
+    //       },
+    //       (err) => console.error(err)
+    //     );
+    //     this.authService.logout();
+    //   },
+    //   (reason) => {
+    //     console.info(`Dismissed with: ${reason}`);
+    //   }
+    // );
   }
 }
