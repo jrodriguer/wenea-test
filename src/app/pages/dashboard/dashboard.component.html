@@ -181,8 +181,8 @@
           </div>
           <div class="card">
             <h5 class="card-header">Location</h5>
-            <div class="card-body">
-              <app-map></app-map>
+            <div *ngIf="coordinates" class="card-body">
+              <app-map [geoLocal]="coordinates"></app-map>
             </div>
           </div>
         </div>

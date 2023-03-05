@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { filter, Observable, Subject, takeUntil } from 'rxjs';
-// import 'chartist/dist/index.css';
 import { LineChart, PieChart } from 'chartist';
 
 import { AuthService } from '../../auth/auth.service';
@@ -9,6 +8,7 @@ import { ModalDialogComponent } from '../../components/modal-dialog/modal-dialog
 import { User } from '../../../models/user.model';
 import { Address, UserDoc } from '../../../models/ddbb.model';
 import { UserService } from '../../services/user.service';
+import { GeocodingService } from '../../services/geocoding.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,13 +18,14 @@ import { UserService } from '../../services/user.service';
 export class DashboardComponent implements OnInit, OnDestroy {
   public userLogued$!: Observable<User | null>;
   private destroyed$ = new Subject<void>();
-  public address: Address | undefined;
   public name: string | undefined;
+  public coordinates: { latitude: number; longitude: number } | undefined;
   public users: any[] = [];
 
   constructor(
     private userService: UserService,
     private authService: AuthService,
+    private geocodingService: GeocodingService,
     private modalService: NgbModal
   ) {}
 
@@ -36,8 +37,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
 
     this.userLogued$.subscribe((user) => {
-      this.address = user?.address;
       this.name = user?.name;
+      this._toGeographicalCoordinates(user?.address);
     });
 
     this._loadUsersData();
@@ -88,6 +89,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
       labelInterpolationFnc: (value) =>
         Math.round((+value / data.series.reduce((a, b) => a + b)) * 100) + '%'
     });
+  }
+
+  private _toGeographicalCoordinates(address: Address | undefined) {
+    this.geocodingService
+      .geocode(`${address?.street} ${address?.city} ${address?.zip}`)
+      .subscribe((coords) => (this.coordinates = coords));
   }
 
   onSignOut() {
