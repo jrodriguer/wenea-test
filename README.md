@@ -53,7 +53,7 @@ Angular is cross-platform, fast, scalable, has incredible tooling, and is loved 
 
 This project uses the Bootstrap component library. You can find documentation and examples on the [official Bootstrap website](https://getbootstrap.com/docs/5.1/components/).
 
-## Charts and graphs Chart.js
+## Chartjs and Chartist for charts and graphs
 
 This project uses the [Chart.js](https://www.chartjs.org/docs/latest/) and [Chartist.js](https://gionkunz.github.io/chartist-js/index.html) libraries for creating charts and graphs.
 
