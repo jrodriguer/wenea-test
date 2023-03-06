@@ -39,7 +39,9 @@
         Hello, {{ name }}
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li>
+          <a class="dropdown-item" (click)="onSettingsUser()">Settings</a>
+        </li>
         <li><a class="dropdown-item" (click)="onSignOut()">Sign out</a></li>
       </ul>
     </div>
