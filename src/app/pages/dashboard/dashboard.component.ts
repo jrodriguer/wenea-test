@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public city: string = '';
   public coordinates: { latitude: number; longitude: number } | undefined;
   public users: any[] = [];
+  public showAllUsers = false;
 
   constructor(
     private userService: UserService,
@@ -67,6 +68,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
           };
         });
       });
+  }
+
+  toggleShowAllUsers() {
+    this.showAllUsers = !this.showAllUsers;
+  }
+
+  getUsersToShow() {
+    if (this.showAllUsers) {
+      return this.users;
+    } else {
+      return this.users.slice(0, 7);
+    }
   }
 
   private _toGeographicalCoordinates(address: Address | undefined) {

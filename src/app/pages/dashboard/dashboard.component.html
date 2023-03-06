@@ -114,14 +114,13 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+        <!-- <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
           <div class="card">
-            <h5 class="card-header">#4 Temperature</h5>
+            <h5 class="card-header"></h5>
             <div class="card-body">
-              <!-- <app-chart-weather [chartType]="'doughnut'"></app-chart-weather> -->
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="row">
         <div class="col-12 col-xl-8 mb-4 mb-lg-0">
@@ -143,7 +142,7 @@
                         <th scope="col"></th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let user of users; let i = index">
+                    <tbody *ngFor="let user of getUsersToShow()">
                       <tr>
                         <th scope="row">{{ user.order }}</th>
                         <td>{{ user.addressRe }}</td>
@@ -152,7 +151,7 @@
                         <td>
                           <a
                             class="btn btn-sm btn-primary"
-                            (click)="onInfoUser(users[i])"
+                            (click)="onInfoUser(user)"
                             >View</a
                           >
                         </td>
@@ -160,9 +159,13 @@
                     </tbody>
                   </table>
                 </div>
+                <a
+                  class="btn btn-block btn-light"
+                  (click)="toggleShowAllUsers()"
+                  >{{ showAllUsers ? 'Show less' : 'View all' }}</a
+                >
               </ng-template>
-              <a href="#" class="btn btn-block btn-light">View all</a>
-              <ng-template #empty> </ng-template>
+              <ng-template #empty> Ups! Users...</ng-template>
             </div>
           </div>
         </div>
