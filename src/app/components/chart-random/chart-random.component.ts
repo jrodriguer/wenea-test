@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
 
-import { CryptoService } from '../../services/cripto.service';
+import { CryptoService } from '../../services/crypto.service';
 
 @Component({
   selector: 'app-chart-random',
