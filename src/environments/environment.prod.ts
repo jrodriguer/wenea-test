@@ -3,6 +3,9 @@ export const environment = {
   apiUrl: 'http://localhost:3000',
   openweathermapApiUrl: 'http://api.openweathermap.org',
   openweathermapApiKey: 'c3feba592977c4dadbfa3995925935ba',
+  opencagegeocodingApiUrl: 'https://api.opencagedata.com/geocode/v1/json',
+  opencagegeocodingApiKey: 'be8ab4a0518c4e73bebf4de7ac08ad02',
+  criptoApiUrl: 'https://api.coingecko.com/api/v3',
   firebase: {
     apiKey: 'AIzaSyDXWEC_FNsxqHaHiqIipKjoMmf16nhaMzM',
     authDomain: 'wenea-thechnical.firebaseapp.com',
