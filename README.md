@@ -38,7 +38,7 @@ Run the application:
 
 ```
 cd [PROJECT NAME]
-ng serve
+npn run start
 ```
 
 Angular is cross-platform, fast, scalable, has incredible tooling, and is loved by millions.
