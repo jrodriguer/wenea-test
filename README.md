@@ -1,4 +1,4 @@
-<h1 align="center">WeneaTest - Web test.</h1>
+<h1 align="center">WeneaTest - Web test</h1>
 
 <p align="center">
   <img src="src/assets/images/wenea-logo.png" alt="angular-logo" width="120px" height="120px"/>
